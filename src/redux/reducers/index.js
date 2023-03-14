@@ -3,8 +3,8 @@ import user from './user';
 
 // import wallet from './wallet';
 
-const reducer = combineReducers({
-  user,
+const rootReducer = combineReducers({
+  emailReducer: user,
 });
 
-export default reducer;
+export default rootReducer;
