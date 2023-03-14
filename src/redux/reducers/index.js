@@ -4,7 +4,7 @@ import user from './user';
 // import wallet from './wallet';
 
 const rootReducer = combineReducers({
-  emailReducer: user,
+  user,
 });
 
 export default rootReducer;
