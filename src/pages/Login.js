@@ -42,7 +42,7 @@ class Login extends React.Component {
       <form
         onSubmit={ (e) => {
           e.preventDefault();
-          dispatch(saveEmail(email));
+          dispatch(saveEmail(saveEmail(email)));
           history.push('/carteira');
         } }
       >
