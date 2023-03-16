@@ -1,4 +1,9 @@
-import { SAVE_COIN, SAVE_EXPENSES, ADD_NEW_EXPENSE } from '../actions/index';
+import {
+  SAVE_COIN,
+  SAVE_EXPENSES,
+  ADD_NEW_EXPENSE,
+  DELETE_EXPENSE,
+} from '../actions/index';
 
 const INICIAL_STATE = {
   currencies: [],
@@ -8,13 +13,11 @@ const INICIAL_STATE = {
 const wallet = (state = INICIAL_STATE, action) => {
   switch (action.type) {
   case SAVE_COIN:
-    console.log(action);
     return {
       ...state,
       currencies: action.currencies,
     };
   case SAVE_EXPENSES:
-    console.log(action);
     return {
       ...state,
       expenses: action.expenses,
@@ -26,6 +29,13 @@ const wallet = (state = INICIAL_STATE, action) => {
         id: state.expenses.length,
         ...action.expense,
       }] };
+  case DELETE_EXPENSE: {
+    console.log(action);
+    return {
+      ...state,
+      expenses: action.expense,
+    };
+  }
   default:
     return state;
   }
