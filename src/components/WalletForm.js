@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import moneyAPI from '../services/moneyAPI';
-import { saveCoin } from '../redux/actions';
+import { newExpense, saveCoin } from '../redux/actions';
 
 class WalletForm extends Component {
   state = {
-    despesa: '',
+    value: '',
     description: '',
     currency: 'USD',
     method: 'Cartão de débito',
@@ -31,8 +31,22 @@ class WalletForm extends Component {
     });
   };
 
+  saveInfos = async (e) => {
+    e.preventDefault();
+    const { dispatch } = this.props;
+    const responseAPI = await moneyAPI();
+    this.setState({ exchangeRates: responseAPI }, () => {
+      dispatch(newExpense(this.state));
+      this.setState({
+        value: '',
+        description: '',
+        exchangeRates: '',
+      });
+    });
+  };
+
   render() {
-    const { despesa, description, method, tag, currency } = this.state;
+    const { value, description, method, tag, currency } = this.state;
     const { currencies } = this.props;
 
     return (
@@ -40,10 +54,10 @@ class WalletForm extends Component {
         <input
           data-testid="value-input"
           type="number"
-          placeholder="despesa"
-          name="despesa"
+          placeholder="value"
+          name="value"
           onChange={ this.handleChange }
-          value={ despesa }
+          value={ value }
         />
 
         <input
@@ -115,6 +129,7 @@ WalletForm.propTypes = {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
 });
 
 export default connect(mapStateToProps)(WalletForm);
