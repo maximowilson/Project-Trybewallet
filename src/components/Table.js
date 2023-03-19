@@ -5,10 +5,9 @@ import { deleteExpense } from '../redux/actions';
 
 class Table extends Component {
   deleteItem = (id) => {
-    const { expenses, dispatch } = this.props;
-    const deletedExpense = expenses.find((element) => element.id === id);
-    console.log(deletedExpense);
-    dispatch(deleteExpense(deletedExpense));
+    const { dispatch, expenses } = this.props;
+    const removedExpense = expenses.filter((e) => e.id !== id);
+    dispatch(deleteExpense(removedExpense));
   };
 
   render() {
@@ -16,39 +15,37 @@ class Table extends Component {
     return (
       <table>
         <thead>
-          <tr>
-            <th>Descrição</th>
-            <th>Tag</th>
-            <th>Método de pagamento</th>
-            <th>Valor</th>
-            <th>Moeda</th>
-            <th>Câmbio utilizado</th>
-            <th>Valor convertido</th>
-            <th>Moeda de conversão</th>
-            <th>Editar/Excluir</th>
-          </tr>
+          <th>Descrição</th>
+          <th>Tag</th>
+          <th>Método de pagamento</th>
+          <th>Valor</th>
+          <th>Moeda</th>
+          <th>Câmbio utilizado</th>
+          <th>Valor convertido</th>
+          <th>Moeda de conversão</th>
+          <th>Editar/Excluir</th>
         </thead>
         <tbody>
-          { expenses.map((expense, index) => (
-            <tr key={ index }>
+          {expenses.map((expense) => (
+            <tr key={ expense.id }>
               <td>{ expense.description }</td>
               <td>{ expense.tag }</td>
               <td>{ expense.method }</td>
               <td>{ Number(expense.value).toFixed(2) }</td>
-              <td>{ expense.exchangeRates[expense.currency].name }</td>
+              <td>{ expense.currency }</td>
               <td>{ Number(expense.exchangeRates[expense.currency].ask).toFixed(2) }</td>
               <td>
-                { (expense.value * expense.exchangeRates[expense.currency]
-                  .ask).toFixed(2) }
-
+                { (expense.value
+                * expense.exchangeRates[expense.currency].ask).toFixed(2) }
               </td>
-              <td>Real</td>
+              <td>{ expense.exchangeRates[expense.currency].name }</td>
               <td>
                 <button
                   data-testid="delete-btn"
+                  type="button"
                   onClick={ () => this.deleteItem(expense.id) }
                 >
-                  Excluir
+                  Delete
                 </button>
               </td>
             </tr>

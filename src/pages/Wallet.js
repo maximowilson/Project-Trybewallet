@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import WalletForm from '../components/WalletForm';
 import Table from '../components/Table';
 
-export default class Wallet extends React.Component {
+class Wallet extends React.Component {
   render() {
     return (
       <>
@@ -14,3 +14,5 @@ export default class Wallet extends React.Component {
     );
   }
 }
+
+export default Wallet;

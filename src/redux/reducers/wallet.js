@@ -8,6 +8,8 @@ import {
 const INICIAL_STATE = {
   currencies: [],
   expenses: [],
+  editor: false,
+  idToEdit: 0,
 };
 
 const wallet = (state = INICIAL_STATE, action) => {
@@ -28,13 +30,9 @@ const wallet = (state = INICIAL_STATE, action) => {
         id: state.expenses.length,
         ...action.expense,
       }] };
-  case DELETE_EXPENSE: {
-    return {
-      ...state,
-      expenses: [...(state.expenses
-        .filter((expense) => expense.id !== action.expense.id))],
-    };
-  }
+  case DELETE_EXPENSE:
+    return { ...state,
+      expenses: [...action.payload] };
   default:
     return state;
   }

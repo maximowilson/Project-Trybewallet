@@ -109,7 +109,6 @@ class WalletForm extends Component {
           <option>Transporte</option>
           <option>Saúde</option>
         </select>
-
         <button
           type="button"
           value="Adicionar despesa"
@@ -117,7 +116,6 @@ class WalletForm extends Component {
         >
           Adicionar despesa
         </button>
-
       </div>
     );
   }
