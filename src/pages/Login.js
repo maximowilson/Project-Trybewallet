@@ -58,6 +58,7 @@ class Login extends React.Component {
         />
         <input
           value={ password }
+          placeholder="Password"
           type="password"
           name="password"
           id="password"

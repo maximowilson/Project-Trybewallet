@@ -23,17 +23,16 @@ const wallet = (state = INICIAL_STATE, action) => {
       expenses: action.expenses,
     };
   case ADD_NEW_EXPENSE:
-    console.log(action);
     return { ...state,
       expenses: [...state.expenses, {
         id: state.expenses.length,
         ...action.expense,
       }] };
   case DELETE_EXPENSE: {
-    console.log(action);
     return {
       ...state,
-      expenses: action.expense,
+      expenses: [...(state.expenses
+        .filter((expense) => expense.id !== action.expense.id))],
     };
   }
   default:

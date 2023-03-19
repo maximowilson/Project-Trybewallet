@@ -6,7 +6,8 @@ import { deleteExpense } from '../redux/actions';
 class Table extends Component {
   deleteItem = (id) => {
     const { expenses, dispatch } = this.props;
-    const deletedExpense = expenses.filter((element) => element.id !== id);
+    const deletedExpense = expenses.find((element) => element.id === id);
+    console.log(deletedExpense);
     dispatch(deleteExpense(deletedExpense));
   };
 
@@ -14,7 +15,6 @@ class Table extends Component {
     const { expenses } = this.props;
     return (
       <table>
-        { console.log(this.props) }
         <thead>
           <tr>
             <th>Descrição</th>
@@ -29,45 +29,30 @@ class Table extends Component {
           </tr>
         </thead>
         <tbody>
-          { expenses.length ? expenses.map((expense, index) => (
+          { expenses.map((expense, index) => (
             <tr key={ index }>
+              <td>{ expense.description }</td>
+              <td>{ expense.tag }</td>
+              <td>{ expense.method }</td>
+              <td>{ Number(expense.value).toFixed(2) }</td>
+              <td>{ expense.exchangeRates[expense.currency].name }</td>
+              <td>{ Number(expense.exchangeRates[expense.currency].ask).toFixed(2) }</td>
               <td>
-                { expense.description }
+                { (expense.value * expense.exchangeRates[expense.currency]
+                  .ask).toFixed(2) }
+
               </td>
-              <td>
-                { expense.tag }
-              </td>
-              <td>
-                { expense.method }
-              </td>
-              <td>
-                { Number(expense.value).toFixed(2) }
-              </td>
-              <td>
-                { expense.currency }
-              </td>
-              <td>
-                { Number(expense.exchangeRates[expense.currency].ask).toFixed(2) }
-              </td>
-              <td>
-                { (expense.value
-                  * expense.exchangeRates[expense.currency].ask).toFixed(2) }
-              </td>
-              <td>
-                { expense.exchangeRates[expense.currency].name }
-              </td>
+              <td>Real</td>
               <td>
                 <button
                   data-testid="delete-btn"
                   onClick={ () => this.deleteItem(expense.id) }
-                  type="button"
                 >
-                  {' '}
-                  Delete
+                  Excluir
                 </button>
               </td>
             </tr>
-          )) : <p>Empty list</p> }
+          ))}
         </tbody>
       </table>
     );
