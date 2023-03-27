@@ -26,8 +26,8 @@ class Table extends Component {
           <th>Editar/Excluir</th>
         </thead>
         <tbody>
-          {expenses.map((expense) => (
-            <tr key={ expense.id }>
+          {expenses.map((expense, index) => (
+            <tr key={ index }>
               <td>{ expense.description }</td>
               <td>{ expense.tag }</td>
               <td>{ expense.method }</td>

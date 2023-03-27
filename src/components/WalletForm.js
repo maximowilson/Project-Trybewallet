@@ -31,8 +31,7 @@ class WalletForm extends Component {
     });
   };
 
-  saveInfos = async (e) => {
-    e.preventDefault();
+  saveInfos = async () => {
     const { dispatch } = this.props;
     const responseAPI = await moneyAPI();
     this.setState({ exchangeRates: responseAPI }, () => {
@@ -112,7 +111,7 @@ class WalletForm extends Component {
         <button
           type="button"
           value="Adicionar despesa"
-          onClick={ this.saveInfos }
+          onClick={ () => this.saveInfos() }
         >
           Adicionar despesa
         </button>

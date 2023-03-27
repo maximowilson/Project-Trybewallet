@@ -45,6 +45,5 @@ describe('Testes da tela de Login', () => {
     userEvent.type(screen.getByRole('spinbutton'), '1');
     userEvent.type(screen.getByRole('textbox'), 'Description of dispenses');
     userEvent.click(screen.getByRole('button', { name: /adicionar despesa/i }));
-    screen.logTestingPlaygroundURL();
   });
 });
